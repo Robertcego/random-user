@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Person from "./components/Person.jsx";
 
@@ -16,6 +16,9 @@ function App() {
   const [location, setLocation] = useState([]);
 
   //? ---------------- //
+  useEffect(() => {
+    document.title = `${name}`;
+  }, [name]);
 
   const handleUser = () => {
     fetch("https://randomuser.me/api/?results=10")
