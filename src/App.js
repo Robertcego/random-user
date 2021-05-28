@@ -18,12 +18,12 @@ function App() {
   //? ---------------- //
 
   const handleUser = () => {
-    fetch("https://randomuser.me/api/")
+    fetch("https://randomuser.me/api/?results=10")
       .then((response) => response.json())
       .then((data) => {
         data.results.map((persons) => {
           let person = {
-            name: `${persons.name.first} ${persons.name.last}`,
+            name: `${persons.name.first} ${persons.name.last}, ${persons.dob.age}`,
             email: persons.email,
             phone: persons.phone,
             img: persons.picture.large,
@@ -34,6 +34,7 @@ function App() {
           setPhone(person.phone);
           setImg(person.img);
           setLocation(person.location);
+          return person;
         });
       });
   };
