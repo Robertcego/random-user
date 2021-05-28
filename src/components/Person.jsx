@@ -12,7 +12,9 @@ function Person({ name, email, phone, img, location }) {
         <Card.Body>
           <Card.Text>{phone}</Card.Text>
           <Card.Footer>
-            <small>{email}</small>
+            <Card.Subtitle style={{ fontSize: "0.9rem" }}>
+              {email}
+            </Card.Subtitle>
           </Card.Footer>
         </Card.Body>
       </Card>
