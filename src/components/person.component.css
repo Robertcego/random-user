@@ -1,0 +1,13 @@
+.main-container {
+  border: 1px solid #ccc;
+  border-radius: 15px 50px;
+  padding: 2rem;
+}
+
+.profile-img {
+  border-radius: 9999px;
+}
+
+.btn:hover {
+  transform: scale(1.15) rotate(0.01turn);
+}

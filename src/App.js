@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import "./App.css";
 import Person from "./components/Person.jsx";
 
+//? ..... ?//
+import "bootstrap/dist/css/bootstrap.min.css";
+import Button from "react-bootstrap/Button";
+
 //? --------------- //
 
 function App() {
@@ -30,7 +34,6 @@ function App() {
           setPhone(person.phone);
           setImg(person.img);
           setLocation(person.location);
-          return person;
         });
       });
   };
@@ -46,8 +49,11 @@ function App() {
           phone={phone}
           img={img}
           location={location}
-          onClick={handleUser}
         />
+        <br />
+        <Button size="lg" variant="info" onClick={handleUser}>
+          Get Random User
+        </Button>
       </header>
     </div>
   );
