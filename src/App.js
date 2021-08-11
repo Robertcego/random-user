@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import "./App.css";
-import Person from "./components/Person.jsx";
+import React, { useEffect, useState } from 'react';
+import './App.css';
+import Person from './components/Person.jsx';
 
 //? ..... ?//
-import "bootstrap/dist/css/bootstrap.min.css";
-import Button from "react-bootstrap/Button";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
 
 //? --------------- //
 
@@ -15,13 +15,21 @@ function App() {
   const [img, setImg] = useState([]);
   const [location, setLocation] = useState([]);
 
+  const [data, setData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    img: '',
+    location: '',
+  });
+
   //? ---------------- //
   useEffect(() => {
     document.title = `${name}`;
   }, [name]);
 
   const handleUser = () => {
-    fetch("https://randomuser.me/api/?results=10")
+    fetch('https://randomuser.me/api/?results=10')
       .then((response) => response.json())
       .then((data) => {
         data.results.map((persons) => {
@@ -45,8 +53,8 @@ function App() {
   //! ----------------------------- !//
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className='App'>
+      <header className='App-header'>
         <Person
           name={name}
           email={email}
@@ -55,7 +63,7 @@ function App() {
           location={location}
         />
         <br />
-        <Button size="lg" variant="info" onClick={handleUser}>
+        <Button size='lg' variant='info' onClick={handleUser}>
           Get Random User
         </Button>
       </header>
