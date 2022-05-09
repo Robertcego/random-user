@@ -55,13 +55,15 @@ function App() {
   return (
     <div className='App'>
       <header className='App-header'>
-        <Person
-          name={name}
-          email={email}
-          phone={phone}
-          img={img}
-          location={location}
-        />
+        {data && (
+          <Person
+            name={name}
+            email={email}
+            phone={phone}
+            img={img}
+            location={location}
+          />
+        )}
         <br />
         <Button size='lg' variant='info' onClick={handleUser}>
           Get Random User

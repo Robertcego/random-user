@@ -1,18 +1,18 @@
-import React from "react";
+import React from 'react';
 // import "./person.component.css";
-import Card from "react-bootstrap/Card";
+import Card from 'react-bootstrap/Card';
 //! .... !//
 function Person({ name, email, phone, img, location }) {
   return (
     <div>
-      <Card style={{ width: "18rem" }}>
-        <Card.Img variant="top" src={img} />
+      <Card style={{ width: '18rem' }}>
+        <Card.Img variant='top' src={img} />
         <Card.Title>{name}</Card.Title>
         <Card.Subtitle>{location}</Card.Subtitle>
         <Card.Body>
           <Card.Text>{phone}</Card.Text>
           <Card.Footer>
-            <Card.Subtitle style={{ fontSize: "0.9rem" }}>
+            <Card.Subtitle style={{ fontSize: '0.9rem' }}>
               {email}
             </Card.Subtitle>
           </Card.Footer>
