@@ -1,0 +1,45 @@
+.child_container {
+    display: flex;
+    flex-direction: row;
+    /* Default to a row layout */
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 12rem;
+    /* Margin can be adjusted in media queries */
+    flex-wrap: wrap;
+    /* Allow children to wrap on smaller screens */
+}
+
+/* Media Queries for Responsiveness */
+
+/* Small devices (phones, 600px and down) */
+@media (max-width: 600px) {
+    .child_container {
+        flex-direction: column;
+        /* Stack items vertically on smaller screens */
+        margin-top: 5rem;
+        /* Adjust margin for better spacing on small screens */
+    }
+}
+
+/* Medium devices (tablets, 601px to 768px) */
+@media (min-width: 601px) and (max-width: 768px) {
+    .child_container {
+        flex-direction: row;
+        /* Optional: Keep row layout on medium screens */
+        justify-content: center;
+        /* Center items on medium screens */
+        margin-top: 8rem;
+        /* Slightly adjusted margin */
+    }
+}
+
+/* Large devices (desktops, 769px and up) */
+@media (min-width: 769px) {
+    .child_container {
+        margin-top: 12rem;
+        /* Original margin */
+        justify-content: space-evenly;
+        /* Default justification */
+    }
+}

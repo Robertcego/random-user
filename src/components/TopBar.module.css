@@ -1,0 +1,43 @@
+.topBar {
+    /* width: 100vw; */
+    /* background-color: #333; */
+    /* color: white; */
+    display: flex;
+    align-content: center;
+    justify-content: flex-end;
+    /* padding: 0.5rem 0; */
+    height: 3rem;
+}
+
+.topBar_light {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.topBar_dark {
+    background-color: #333;
+    color: white;
+}
+
+
+
+.topBar_btn {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.topBar_btn:hover {
+    transform: scale(1.2);
+}
+
+.topBar_btn {
+    transition: all 0.3s ease;
+}
+
+.topBar_btn:active {
+    transform: scale(0.9);
+}

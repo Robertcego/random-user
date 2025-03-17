@@ -1,74 +1,48 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
+import { ThemeProvider, ThemeContext } from './contexts/ThemeContext.jsx';
+
+import TopBar from './components/TopBar.jsx';
+import Container from './components/Container.jsx';
+import PersonInformation from './components/PersonInformation.jsx';
+
 import './App.css';
-import Person from './components/Person.jsx';
 
-//? ..... ?//
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
-
-//? --------------- //
-
-function App() {
-  const [name, setName] = useState([]);
-  const [email, setEmail] = useState([]);
-  const [phone, setPhone] = useState([]);
-  const [img, setImg] = useState([]);
-  const [location, setLocation] = useState([]);
-
-  const [data, setData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    img: '',
-    location: '',
-  });
-
-  //? ---------------- //
-  useEffect(() => {
-    document.title = `${name}`;
-  }, [name]);
-
-  const handleUser = () => {
-    fetch('https://randomuser.me/api/?results=10')
-      .then((response) => response.json())
-      .then((data) => {
-        data.results.map((persons) => {
-          let person = {
-            name: `${persons.name.first} ${persons.name.last}, ${persons.dob.age}`,
-            email: persons.email,
-            phone: persons.phone,
-            img: persons.picture.large,
-            location: `${persons.location.city}, ${persons.location.country}`,
-          };
-          setName(person.name);
-          setEmail(person.email);
-          setPhone(person.phone);
-          setImg(person.img);
-          setLocation(person.location);
-          return person;
-        });
-      });
+const styledTheme = {
+    light: {
+      backgroundColor: '#fff',
+      color: '#333',
+    },
+    dark: {
+      backgroundColor: '#333',
+      color: '#fff',
+    },
   };
 
-  //! ----------------------------- !//
+  // Using the theme styles
+  
+  function App() {
+    return (
+      <ThemeProvider>
+      <MainContent />
+    </ThemeProvider>);
+}
+
+
+const MainContent = () => {
+  
+  const { theme } = useContext(ThemeContext);
+  const currentStyles = styledTheme[theme];
+
+  console.log('====================================');
+  console.log('theme', theme);
+  console.log('====================================');
 
   return (
-    <div className='App'>
-      <header className='App-header'>
-        {data && (
-          <Person
-            name={name}
-            email={email}
-            phone={phone}
-            img={img}
-            location={location}
-          />
-        )}
-        <br />
-        <Button size='lg' variant='info' onClick={handleUser}>
-          Get Random User
-        </Button>
-      </header>
+    <div style={currentStyles}>
+      <TopBar />
+      <Container>
+        <PersonInformation />
+      </Container>
     </div>
   );
 }

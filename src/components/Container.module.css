@@ -1,0 +1,49 @@
+.container {
+    box-sizing: border-box;
+    clear: both;
+    margin: 0 auto;
+    max-width: 82.5rem;
+    /* Maximum width for larger screens */
+    padding-left: 1.25rem;
+    /* Padding for inner content */
+    padding-right: 1.25rem;
+    /* Padding for inner content */
+    width: 100%;
+    /* Full width on smaller screens */
+    height: auto;
+    /* Allow height to adjust based on content */
+    min-height: 100vh;
+    /* Minimum height for full viewport height */
+}
+
+/* Media Queries for Responsiveness */
+
+/* Small devices (phones, 600px and down) */
+@media (max-width: 600px) {
+    .container {
+        padding-left: 0.625rem;
+        /* Reduced padding for small screens */
+        padding-right: 0.625rem;
+        /* Reduced padding for small screens */
+    }
+}
+
+/* Medium devices (tablets, 600px to 768px) */
+@media (min-width: 601px) and (max-width: 768px) {
+    .container {
+        padding-left: 1rem;
+        /* Adjusted padding for medium screens */
+        padding-right: 1rem;
+        /* Adjusted padding for medium screens */
+    }
+}
+
+/* Large devices (desktops, 768px and up) */
+@media (min-width: 769px) {
+    .container {
+        padding-left: 1.25rem;
+        /* Original padding */
+        padding-right: 1.25rem;
+        /* Original padding */
+    }
+}
