@@ -9,7 +9,7 @@ import Person from './Person';
 import containerCSS from './PersonInformation.module.css';
 
 
-function PersonInformation() {
+function PersonInformation({ personGender }) {
     const [img, setImg] = useState('');
     const [name, setName] = useState('');
     const [lastname, setLastname] = useState('');
@@ -71,6 +71,7 @@ function PersonInformation() {
                     lastname={lastname}
                     username={username}
                     date_of_birth={date_of_birth}
+                    personGender={personGender}
                     gender={gender}
                     occupation={occupation}
                     phone={phone}
