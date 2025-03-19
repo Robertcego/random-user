@@ -4,9 +4,9 @@ import { ThemeProvider, ThemeContext } from './contexts/ThemeContext.jsx';
 import TopBar from './components/TopBar.jsx';
 import Container from './components/Container.jsx';
 import PersonInformation from './components/PersonInformation.jsx';
-import PersonOptions from './components/PersonOptions.jsx';
 
 import './App.css';
+import PersonOptions from './components/PersonOptions.jsx';
 
 const styledTheme = {
     light: {
@@ -25,23 +25,22 @@ const styledTheme = {
     return (
       <ThemeProvider>
       <MainContent />
-    </ThemeProvider>);
+    </ThemeProvider>
+    );
 }
 
 
 const MainContent = () => {
-  const [gender, setGender] = useState('');
-
-const handleClick = (e) => {
-  e.preventDefault();
-  console.log('====================================');
-  console.log('clicked');
-  console.log('====================================');
-};
-
-  
   const { theme } = useContext(ThemeContext);
   const currentStyles = styledTheme[theme];
+  
+  const [userSelection, setUserSelection] = useState('');
+
+  const handleUserSelection = (e) => {
+    e.preventDefault();  
+    console.log('Button clicked');
+    setUserSelection('female');
+  }
 
   console.log('====================================');
   console.log('theme', theme);
@@ -51,8 +50,8 @@ const handleClick = (e) => {
     <div style={currentStyles}>
       <TopBar />
       <Container>
-        <PersonOptions handleButton={handleClick} />
-        <PersonInformation gender={gender}/>
+        <PersonOptions handleClick={handleUserSelection} />
+        <PersonInformation genderSelection={userSelection}/>
       </Container>
     </div>
   );

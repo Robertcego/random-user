@@ -6,7 +6,7 @@ import personDataCSS from './Person.module.css';
 
 //! .... !//
 
-function Person({ avatar, name, lastname, username, date_of_birth, personGender, gender, occupation, phone, address, state, country, email, password, credit_card }) {
+function Person({ avatar, name, lastname, username, date_of_birth, gender, occupation, phone, address, state, country, email, password, credit_card }) {
   return (
     <div>
       <PersonImage img={avatar} />
@@ -15,7 +15,6 @@ function Person({ avatar, name, lastname, username, date_of_birth, personGender,
       <p><span className={personDataCSS.userData}>Username:</span> {username}</p>
       <p><span className={personDataCSS.userData}>Date of Birth:</span> {date_of_birth}</p>
       <p><span className={personDataCSS.userData}>Gender:</span> {gender}</p>
-      <p><span className={personDataCSS.userData}>Gender:</span> {personGender}</p>
       <p><span className={personDataCSS.userData}>Ocupation:</span> {occupation}</p>
       <p><span className={personDataCSS.userData}>Phone:</span> {phone}</p>
       <p><span className={personDataCSS.userData}>City:</span> {address}</p>
