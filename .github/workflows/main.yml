@@ -2,7 +2,7 @@ name: Daily Dependency Update
 
 on:
   schedule:
-    - cron: '0 22 * * *'
+    - cron: '0 22 * * *' # Every day at 10 PM UTC
   workflow_dispatch:
 
 jobs:
@@ -10,40 +10,57 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Setup Node.js with cache
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+          cache: 'npm'
 
-      - name: Cache node modules
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install dependencies
-        run: npm ci || (echo "npm ci failed, falling back to npm install" && npm install)
+      - name: Install dependencies (npm ci fallback)
+        id: install-deps
+        run: |
+          npm ci || (echo "npm ci failed, falling back to npm install" && npm install)
 
       - name: Update dependencies
         run: npm update
 
-      - name: Check for changes
+      - name: Check if dependencies changed
         id: git-check
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add package*.json package-lock.json
-          git diff --cached --quiet || echo "changed=true" >> $GITHUB_OUTPUT
+          git add package*.json package-lock.json || true
+          if git diff --cached --quiet; then
+            echo "No dependency changes detected."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run build and tests
+        if: steps.git-check.outputs.changed == 'true'
+        run: |
+          echo "🧪 Verifying build and test"
+          npm run build
+          npm test -- --watchAll=false
 
       - name: Create Pull Request
         if: steps.git-check.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v5
         with:
           commit-message: "chore: daily dependency update"
-          title: 'Daily Dependency Update'
-          body: 'Automated dependency update at 10 PM (UTC)'
+          branch: dependency-update
+          title: "chore: Daily Dependency Update"
+          body: |
+            This PR updates dependencies using `npm update`.
+
+            ✅ Auto-generated at **10 PM UTC**
+            ✅ `npm run build` and `npm test` passed
+            ✅ Verified using `npm ci` → `npm update` → re-test
+            📦 Only runs if dependencies actually changed
+
+          labels: |
+            dependencies
+            automated
