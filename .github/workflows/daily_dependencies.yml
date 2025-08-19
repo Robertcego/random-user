@@ -1,0 +1,73 @@
+name: Safe Daily Dependency Update
+
+on:
+  schedule:
+    - cron: '0 22 * * *' # Runs daily at 10PM UTC
+  workflow_dispatch:
+
+jobs:
+  update-dependencies:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js (v18) with cache
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Clean install
+        run: npm ci || (echo "⚠️ npm ci failed, falling back to npm install" && npm install)
+
+      - name: Safe dependency update (with legacy fallback)
+        id: update
+        run: |
+          set -e
+          echo "Running npm update..."
+          npm update || {
+            echo "⚠️ npm update failed. Retrying with --legacy-peer-deps..."
+            npm update --legacy-peer-deps || {
+              echo "❌ npm update completely failed. Exiting."
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            }
+          }
+
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add package*.json package-lock.json || true
+
+          if git diff --cached --quiet; then
+            echo "No dependency changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Changes detected."
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run build & tests
+        if: steps.update.outputs.changed == 'true'
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
+        run: |
+          npm run build
+          npm test -- --watchAll=false --passWithNoTests
+
+      - name: Create Pull Request
+        if: steps.update.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: "chore: safe daily dependency update"
+          branch: dependency-update
+          title: "chore: Safe Daily Dependency Update"
+          body: |
+            ✅ Dependencies were updated using `npm update`
+            🔄 Fallback to `--legacy-peer-deps` was used if needed
+            🧪 Build and test ran successfully to validate compatibility
+            ⏰ Triggered at 10PM UTC (daily)
+          labels: |
+            dependencies
+            automated
