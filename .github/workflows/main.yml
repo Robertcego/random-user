@@ -175,10 +175,6 @@ jobs:
           NODE_OPTIONS: --max-old-space-size=4096 --openssl-legacy-provider
           CI: true
         run: |
-<<<<<<< Updated upstream
-          npm run build
-          npm test -- --watchAll=false --passWithNoTests
-=======
           echo "🏗️ Running build..."
           
           # Build with timeout and retry
@@ -197,7 +193,6 @@ jobs:
             echo "⚠️ Tests failed, but continuing with PR creation..."
             echo "Please review test results manually"
           }
->>>>>>> Stashed changes
 
       - name: Create Pull Request with enhanced metadata
         if: steps.update.outputs.changed == 'true'
