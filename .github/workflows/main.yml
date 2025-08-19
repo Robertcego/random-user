@@ -2,7 +2,7 @@ name: Safe Daily Dependency Update
 
 on:
   schedule:
-    - cron: '0 22 * * *'
+    - cron: '0 22 * * *' # Runs daily at 10PM UTC
   workflow_dispatch:
 
 jobs:
@@ -18,9 +18,6 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-
-      - name: Set OpenSSL fallback for Webpack
-        run: echo "NODE_OPTIONS=--openssl-legacy-provider" >> $GITHUB_ENV
 
       - name: Clean install
         run: npm ci || (echo "⚠️ npm ci failed, falling back to npm install" && npm install)
@@ -53,8 +50,9 @@ jobs:
 
       - name: Run build & tests
         if: steps.update.outputs.changed == 'true'
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
         run: |
-          echo "🛠️ Verifying compatibility..."
           npm run build
           npm test -- --watchAll=false
 
