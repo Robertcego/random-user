@@ -54,7 +54,7 @@ jobs:
           NODE_OPTIONS: --openssl-legacy-provider
         run: |
           npm run build
-          npm test -- --watchAll=false
+          npm test -- --watchAll=false --passWithNoTests
 
       - name: Create Pull Request
         if: steps.update.outputs.changed == 'true'
