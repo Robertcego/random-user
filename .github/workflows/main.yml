@@ -1,4 +1,4 @@
-name: Safe Daily Dependency Update
+name: Daily Dependency Update
 
 on:
   schedule:
