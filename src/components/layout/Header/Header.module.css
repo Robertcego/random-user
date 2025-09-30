@@ -1,0 +1,141 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid;
+  transition: all 0.3s ease;
+}
+
+.header.light {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-bottom-color: #e9ecef;
+  color: #333;
+}
+
+.header.dark {
+  background-color: rgba(52, 58, 64, 0.95);
+  border-bottom-color: #495057;
+  color: #f8f9fa;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 4rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.themeToggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 2px solid;
+  border-radius: 25px;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  min-width: 80px;
+  justify-content: center;
+}
+
+.light .themeToggle {
+  border-color: #333;
+  color: #333;
+}
+
+.light .themeToggle:hover {
+  background-color: #333;
+  color: white;
+  transform: translateY(-1px);
+}
+
+.dark .themeToggle {
+  border-color: #f8f9fa;
+  color: #f8f9fa;
+}
+
+.dark .themeToggle:hover {
+  background-color: #f8f9fa;
+  color: #333;
+  transform: translateY(-1px);
+}
+
+.themeIcon {
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+}
+
+.themeToggle:hover .themeIcon {
+  transform: rotate(15deg) scale(1.1);
+}
+
+.themeText {
+  font-weight: 500;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 0.75rem;
+    min-height: 3.5rem;
+  }
+  
+  .title {
+    font-size: 1.25rem;
+  }
+  
+  .themeToggle {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    min-width: 70px;
+  }
+  
+  .themeText {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+  
+  .title {
+    font-size: 1.1rem;
+  }
+  
+  .themeToggle {
+    padding: 0.3rem 0.6rem;
+    min-width: 50px;
+    border-radius: 20px;
+  }
+}
